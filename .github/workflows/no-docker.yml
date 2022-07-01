@@ -16,7 +16,9 @@ jobs:
         run: |2-
                     export DEBIAN_FRONTEND=noninteractive
                     sudo apt-get update
-
+                    sudo apt-get install -y \
+                          g++-multilib \
+                          libc6-dev-i386 
                     curl https://sh.rustup.rs -sSf | sh -s -- -y
                     source $HOME/.cargo/env
                     echo "$HOME/.cargo/bin:/usr/lib/go-1.17/bin/:$PATH" >> "$GITHUB_PATH"
