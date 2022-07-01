@@ -1,0 +1,30 @@
+name: Docker Integration Test
+'on': [push,workflow_dispatch]
+jobs:
+  docker-integration-test:
+    name: Docker Integration Test
+    runs-on: ubuntu-latest
+    container: 'ubuntu:20.04'
+    steps:
+      - name: Dump environment
+        run: env
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: '${{ toJson(github) }}'
+        run: echo "$GITHUB_CONTEXT"
+      - name: Setup Docker container
+        shell: bash
+        run: |2-
+                    curl https://sh.rustup.rs -sSf | sh -s -- -y
+                    source $HOME/.cargo/env
+                    echo "$HOME/.cargo/bin:/usr/lib/go-1.17/bin/:$PATH" >> "$GITHUB_PATH"
+                    echo "CROSS_DOCKER_IN_DOCKER=true" >> "$GITHUB_ENV"
+                    rustup update
+                    rustup toolchain install 1.54 --target x86_64-unknown-linux-gnu --profile minimal --component cargo rust-src rustfmt
+                    cargo install cross
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run
+        run: >
+            cross build --target x86_64-unknown-linux-gnu 
+        shell: bash
