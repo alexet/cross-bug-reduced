@@ -29,7 +29,7 @@ jobs:
                     echo "$HOME/.cargo/bin:/usr/lib/go-1.17/bin/:$PATH" >> "$GITHUB_PATH"
                     echo "CROSS_DOCKER_IN_DOCKER=true" >> "$GITHUB_ENV"
                     rustup update
-                    rustup toolchain install 1.54 --target x86_64-unknown-linux-gnu --profile minimal --component cargo rust-src rustfmt
+                    rustup toolchain install stable --target x86_64-unknown-linux-gnu --profile minimal --component cargo rust-src rustfmt
                     cargo install cross
       - name: Checkout
         uses: actions/checkout@v2
