@@ -31,7 +31,7 @@ jobs:
                     echo "CROSS_DOCKER_IN_DOCKER=true" >> "$GITHUB_ENV"
                     rustup update
                     rustup toolchain install stable --target x86_64-unknown-linux-gnu --profile minimal --component cargo rust-src rustfmt
-                    cargo install cross --version 2.2.1
+                    cargo install cross --version 0.2.1
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run
