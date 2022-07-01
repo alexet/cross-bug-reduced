@@ -35,6 +35,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run
-        run: >
-            cross build -vv --target x86_64-unknown-linux-gnu 
         shell: bash
+        run: |2-
+            cross build -vv --target x86_64-unknown-linux-gnu 
+            
+            cross build -vv --target x86_64-unknown-linux-gnu 
